@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sissy Space 🎀</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink: #f2a7b8;
+  --rose: #e87b96;
+  --deep: #3a1a24;
+  --cream: #fdf4f0;
+  --blush: #fce8ee;
+  --gold: #d4a85a;
+  --text: #4a2833;
+  --muted: #9a7080;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* GRAIN OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.5;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  background: radial-gradient(ellipse 80% 60% at 50% 30%, #ffe4ef 0%, var(--cream) 70%);
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--cream));
+}
+
+/* Floating petals */
+.petal {
+  position: absolute;
+  font-size: 1.2rem;
+  opacity: 0.3;
+  animation: float linear infinite;
+  pointer-events: none;
+}
+@keyframes float {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.3; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+}
+
+.hero-tag {
+  display: inline-block;
+  background: var(--blush);
+  color: var(--rose);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #f5c6d3;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--deep);
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--rose);
+}
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 1rem;
+  line-height: 1.6;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+.btn {
+  padding: 0.85rem 2rem;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--rose);
+  color: white;
+  box-shadow: 0 4px 20px rgba(232,123,150,0.4);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,123,150,0.5); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--rose);
+  border: 1.5px solid var(--rose);
+}
+.btn-outline:hover { background: var(--blush); transform: translateY(-2px); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* SECTION */
+section {
+  padding: 5rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rose);
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--deep);
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--muted);
+  font-style: italic;
+  max-width: 550px;
+}
+
+/* ───── NAME GENERATOR ───── */
+#name-gen {
+  background: linear-gradient(135deg, #fff0f5, #fce8ee);
+  border-radius: 2rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  border: 1px solid #f5c6d3;
+  position: relative;
+  overflow: hidden;
+}
+
+#name-gen::before {
+  content: '🎀';
+  font-size: 8rem;
+  position: absolute;
+  top: -2rem;
+  right: -1rem;
+  opacity: 0.08;
+}
+
+.name-display {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-style: italic;
+  color: var(--rose);
+  min-height: 1.2em;
+  margin: 1.5rem 0;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  letter-spacing: -0.02em;
+}
+
+.name-display.popping {
+  transform: scale(1.1);
+}
+
+.name-meaning {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  min-height: 1.5em;
+}
+
+.name-gen-options {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.vibe-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  border: 1.5px solid #f5c6d3;
+  background: white;
+  color: var(--muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.vibe-btn.active, .vibe-btn:hover {
+  background: var(--rose);
+  color: white;
+  border-color: var(--rose);
+}
+
+/* ───── QUIZ ───── */
+#quiz-section {
+  background: var(--deep);
+  border-radius: 2rem;
+  padding: 3rem 2rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+#quiz-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(242,167,184,0.15) 0%, transparent 60%);
+}
+
+#quiz-section .section-label { color: var(--pink); }
+#quiz-section .section-title { color: white; }
+#quiz-section .section-desc { color: rgba(255,255,255,0.5); }
+
+.quiz-card {
+  position: relative;
+  z-index: 2;
+}
+
+.quiz-question {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  margin: 2rem 0 1.5rem;
+  line-height: 1.4;
+  color: white;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.quiz-opt {
+  padding: 1rem 1.25rem;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 1rem;
+  color: rgba(255,255,255,0.85);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  line-height: 1.4;
+}
+.quiz-opt:hover { background: rgba(242,167,184,0.15); border-color: var(--pink); color: white; }
+.quiz-opt.selected { background: rgba(232,123,150,0.3); border-color: var(--rose); color: white; }
+
+.quiz-progress {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.quiz-dot {
+  height: 4px;
+  flex: 1;
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+.quiz-dot.done { background: var(--rose); }
+.quiz-dot.current { background: var(--pink); }
+
+.quiz-result {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(242,167,184,0.3);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+  display: none;
+}
+
+.quiz-result h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-style: italic;
+  color: var(--pink);
+  margin-bottom: 0.5rem;
+}
+
+.quiz-result p {
+  color: rgba(255,255,255,0.7);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* ───── FEATURES GRID ───── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.feature-card {
+  background: white;
+  border: 1px solid #f5e0e7;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(232,123,150,0.15);
+  border-color: var(--pink);
+}
+
+.feature-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #fce8ee, #f5d0dc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.feature-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.feature-img-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--rose);
+  opacity: 0.45;
+}
+
+.feature-img-placeholder span { font-size: 2.8rem; }
+
+.feature-img-placeholder small {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.feature-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--deep);
+  margin-bottom: 0.4rem;
+}
+
+.feature-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.feature-badge {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rose);
+  font-weight: 500;
+}
+
+/* ───── NAUGHTY SISSY GIRLS ───── */
+.naughty-carousel-section {
+  background: var(--cream);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.naughty-inner {
+  border: 1.5px solid #f0c8d4;
+  border-radius: 2rem;
+  padding: 2.5rem 2rem 2rem;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative corner accent */
+.naughty-inner::before {
+  content: '💋';
+  position: absolute;
+  top: -1rem;
+  right: 2rem;
+  font-size: 5rem;
+  opacity: 0.06;
+  pointer-events: none;
+  transform: rotate(-15deg);
+}
+
+.naughty-inner::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rose), var(--pink), var(--gold), var(--rose));
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  border-radius: 2rem 2rem 0 0;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+.naughty-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.naughty-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--deep);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.naughty-title em {
+  font-style: italic;
+  color: var(--rose);
+}
+
+.naughty-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.naughty-counter {
+  text-align: center;
+  background: linear-gradient(135deg, var(--deep), #5a2535);
+  color: white;
+  border-radius: 1.25rem;
+  padding: 1rem 1.5rem;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.counter-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--pink);
+  line-height: 1;
+}
+
+.counter-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.3rem;
+}
+
+.naughty-wrap::before {
+  background: linear-gradient(to right, white, transparent) !important;
+}
+.naughty-wrap::after {
+  background: linear-gradient(to left, white, transparent) !important;
+}
+
+.naughty-btn {
+  background: var(--blush) !important;
+  border-color: #f5c6d3 !important;
+  color: var(--rose) !important;
+}
+.naughty-btn:hover {
+  background: var(--rose) !important;
+  border-color: var(--rose) !important;
+  color: white !important;
+}
+
+.drag-hint {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--muted);
+  align-self: center;
+  margin-left: 0.5rem;
+}
+
+/* Caption card — light skin for naughty section */
+.caption-card {
+  flex: 0 0 160px;
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  background: #f9eef2;
+  border: 1px solid #f0ccd8;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.caption-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(232,123,150,0.25);
+}
+
+.caption-placeholder {
+  width: 100%;
+  aspect-ratio: 1080 / 1344;
+  background: linear-gradient(160deg, #fce8ee 0%, #f5c6d5 50%, #f0d0e0 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.75rem;
+}
+
+.cap-icon { font-size: 1.8rem; opacity: 0.7; }
+
+.cap-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--deep);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.cap-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.caption-img {
+  width: 100%;
+  aspect-ratio: 1080 / 1344;
+  display: block;
+  object-fit: cover;
+}
+
+.caption-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(58,26,36,0.85) 0%, transparent 100%);
+  padding: 1.2rem 0.75rem 0.65rem;
+}
+
+.caption-member-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: white;
+  display: block;
+}
+
+/* ───── CAROUSEL TRACK (shared) ───── */
+.carousel-track-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+
+.carousel-track-wrap::before,
+.carousel-track-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.carousel-track-wrap::before { left: 0; background: linear-gradient(to right, white, transparent); }
+.carousel-track-wrap::after  { right: 0; background: linear-gradient(to left, white, transparent); }
+
+.carousel-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 0.5rem 0.5rem;
+  cursor: grab;
+  user-select: none;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-track.grabbing { cursor: grabbing; }
+
+.carousel-controls {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+.carousel-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.07);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-btn:hover { background: var(--rose); border-color: var(--rose); }
+
+/* ───── PATREON TIERS ───── */
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.tier-card {
+  border-radius: 1.5rem;
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s;
+  position: relative;
+}
+.tier-card:hover { transform: translateY(-4px); }
+
+.tier-card.basic { background: var(--blush); border: 1px solid #f5c6d3; }
+.tier-card.pro { background: var(--deep); color: white; }
+.tier-card.vip { background: linear-gradient(135deg, #3a1a24, #5a2535); color: white; border: 1px solid rgba(212,168,90,0.3); }
+
+.tier-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0.75rem 0 0.25rem;
+}
+.tier-card.basic .tier-price { color: var(--rose); }
+.tier-card.pro .tier-price, .tier-card.vip .tier-price { color: var(--pink); }
+
+.tier-period { font-size: 0.8rem; color: var(--muted); }
+.tier-card.pro .tier-period, .tier-card.vip .tier-period { color: rgba(255,255,255,0.5); }
+
+.tier-name {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--rose);
+}
+.tier-card.pro .tier-name { color: var(--pink); }
+.tier-card.vip .tier-name { color: var(--gold); }
+
+.tier-features {
+  list-style: none;
+  margin: 1.25rem 0;
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+.tier-features li::before { content: '✦ '; color: var(--rose); font-size: 0.7rem; }
+.tier-card.pro .tier-features li::before, .tier-card.vip .tier-features li::before { color: var(--pink); }
+.tier-card.vip .tier-features li::before { color: var(--gold); }
+
+.tier-cta {
+  width: 100%;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  text-decoration: none;
+  display: block;
+  transition: opacity 0.2s;
+}
+.tier-cta:hover { opacity: 0.85; }
+.tier-card.basic .tier-cta { background: var(--rose); color: white; }
+.tier-card.pro .tier-cta { background: var(--pink); color: var(--deep); }
+.tier-card.vip .tier-cta { background: var(--gold); color: var(--deep); }
+
+/* ───── SOCIAL ───── */
+.social-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 100px;
+  background: white;
+  border: 1.5px solid #f5e0e7;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.social-link:hover { background: var(--blush); border-color: var(--pink); }
+
+/* ───── FOOTER ───── */
+footer {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  border-top: 1px solid #f5e0e7;
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+
+footer strong {
+  font-family: 'Playfair Display', serif;
+  color: var(--rose);
+}
+
+/* ───── UTILITY ───── */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mt-3 { margin-top: 3rem; }
+</style>
+</head>
+<body>
+
+<!-- FLOATING PETALS -->
+<script>
+const petals = ['🌸','🎀','✨','💕','🌷'];
+for(let i=0;i<12;i++){
+  const p=document.createElement('div');
+  p.className='petal';
+  p.textContent=petals[Math.floor(Math.random()*petals.length)];
+  p.style.left=Math.random()*100+'vw';
+  p.style.animationDuration=(8+Math.random()*12)+'s';
+  p.style.animationDelay=(-Math.random()*20)+'s';
+  p.style.fontSize=(0.8+Math.random()*1.2)+'rem';
+  document.body.appendChild(p);
+}
+</script>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">🎀 18+ Private Community</div>
+    <h1>Sissy<br><em>Space</em></h1>
+    <p class="hero-sub">A soft, sparkly universe made for those<br>who dream in pink.</p>
+    <div class="hero-actions">
+      <a href="#features" class="btn btn-primary">Explore the Space ✨</a>
+      <a href="https://www.patreon.com/c/sissyspace" class="btn btn-outline" target="_blank">Join on Patreon</a>
+    </div>
+  </div>
+</header>
+
+<!-- NAUGHTY SISSY GIRLS CAROUSEL -->
+<section style="padding-top: 2rem; padding-bottom: 0;">
+  <div class="naughty-carousel-section">
+    <div class="naughty-inner">
+
+      <div class="naughty-header">
+        <div>
+          <div class="section-label" style="color:#e87b96;">New Arrivals</div>
+          <h2 class="naughty-title">New Naughty<br><em>Sissy Girls</em> 💋</h2>
+          <p class="naughty-sub">Every new member gets her own personal caption card.<br>Meet the latest girls to join the Space.</p>
+        </div>
+        <div class="naughty-counter">
+          <div class="counter-num" id="memberCount">8</div>
+          <div class="counter-label">girls this month</div>
+        </div>
+      </div>
+
+      <div class="carousel-track-wrap naughty-wrap">
+        <div class="carousel-track" id="memberCarousel">
+
+          <!-- ═══════════════════════════════════════════════════════════════
+               HOW TO ADD A NEW MEMBER:
+               1. Copy a <div class="caption-card"> block below
+               2. Change the name in cap-name AND caption-member-name
+               3. To use a real caption image (1080×1344):
+                  Replace <div class="caption-placeholder">...</div>
+                  with: <img class="caption-img" src="YOUR_URL" alt="Name">
+          ═══════════════════════════════════════════════════════════════ -->
+
+          <div class="caption-card">
+            <div class="caption-placeholder">
+              <div class="cap-icon">🎀</div>
+              <div class="cap-name">Lily Rose</div>
+              <div class="cap-label">caption image</div>
+            </div>
+            <div class="caption-overlay">
+              <span class="caption-member-name">Lily Rose</span>
+            </div>
+          </div>
+
+          <div class="caption-card">
+            <div class="caption-placeholder">
+              <div class="cap-icon">🌸</div>
+              <div class="cap-name">Bambi</div>
+              <div class="cap-label">caption image</div>
+            </div>
+            <div class="caption-overlay">
+              <span class="caption-member-name">Bambi</span>
+            </div>
+          </div>
+
+          <div class="caption-card">
+            <div class="caption-placeholder">
+              <div class="cap-icon">💕</div>
+              <div class="cap-name">Sophie</div>
+              <div class="cap-label">caption image</div>
+            </div>
+            <div class="caption-overlay">
+              <span class="caption-member-name">Sophie</span>
+            </div>
+          </div>
+
+          <div class="caption-card">
+            <div class="caption-placeholder">
+              <div class="cap-icon">✨</div>
+              <div class="cap-name">Princess Candy</div>
+              <div class="cap-label">caption image</div>
+            </div>
+            <div class="caption-overlay">
+              <span class="caption-member-name">Princess Candy</span>
+            </div>
+          </div>
+
+          <div class="caption-card">
+            <div class="caption-placeholder">
+              <div class="cap-icon">💋</div>
+              <div class="cap-name">Vivienne</div>
+              <div class="cap-label">caption image</div>
+            </div>
+            <div class="caption-overlay">
+              <span class="caption-member-name">Vivienne</span>
+            </div>
+          </div>
+
+          <div class="caption-card">
+            <div class="caption-placeholder">
+              <div class="cap-icon">🌷</div>
+              <div class="cap-name">Daisy</div>
+              <div class="cap-label">caption image</div>
+            </div>
+            <div class="caption-overlay">
+              <span class="caption-member-name">Daisy</span>
+            </div>
+          </div>
+
+          <div class="caption-card">
+            <div class="caption-placeholder">
+              <div class="cap-icon">🔥</div>
+              <div class="cap-name">Scarlett</div>
+              <div class="cap-label">caption image</div>
+            </div>
+            <div class="caption-overlay">
+              <span class="caption-member-name">Scarlett</span>
+            </div>
+          </div>
+
+          <div class="caption-card">
+            <div class="caption-placeholder">
+              <div class="cap-icon">💎</div>
+              <div class="cap-name">Celeste</div>
+              <div class="cap-label">caption image</div>
+            </div>
+            <div class="caption-overlay">
+              <span class="caption-member-name">Celeste</span>
+            </div>
+          </div>
+
+          <!-- ADD MORE MEMBERS HERE ↑ copy any caption-card block above -->
+
+        </div>
+      </div>
+
+      <div class="carousel-controls" style="justify-content:flex-start; margin-top:1.25rem;">
+        <button class="carousel-btn naughty-btn" id="carouselLeft" title="Scroll left">←</button>
+        <button class="carousel-btn naughty-btn" id="carouselRight" title="Scroll right">→</button>
+        <span class="drag-hint">drag to explore 💅</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">What awaits you</div>
+  <h2 class="section-title">Your Journey Begins Here</h2>
+  <p class="section-desc">From hypno audios to personal challenges — everything in one soft space.</p>
+
+  <div class="features-grid">
+    <a href="#name-section" class="feature-card">
+      <div class="feature-img">
+        <!-- Replace src with your image URL -->
+        <div class="feature-img-placeholder"><span>💎</span><small>Add Image</small></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-title">Sissy Name Generator</div>
+        <div class="feature-desc">Discover your perfect feminine name based on your vibe and personality.</div>
+        <div class="feature-badge">Try it free →</div>
+      </div>
+    </a>
+    <a href="#quiz-section" class="feature-card">
+      <div class="feature-img">
+        <div class="feature-img-placeholder"><span>🌸</span><small>Add Image</small></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-title">Character Quiz</div>
+        <div class="feature-desc">Find out what sissy archetype resonates with your inner self.</div>
+        <div class="feature-badge">Discover yourself →</div>
+      </div>
+    </a>
+    <a href="https://www.patreon.com/collection/1408836?view=expanded" class="feature-card" target="_blank">
+      <div class="feature-img">
+        <div class="feature-img-placeholder"><span>🎧</span><small>Add Image</small></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-title">Guided Audios</div>
+        <div class="feature-desc">Immersive audio sessions to support your mindset and transformation journey.</div>
+        <div class="feature-badge">Sissy Professional+ →</div>
+      </div>
+    </a>
+    <a href="https://www.patreon.com/collection/660899" class="feature-card" target="_blank">
+      <div class="feature-img">
+        <div class="feature-img-placeholder"><span>🎯</span><small>Add Image</small></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-title">Tasks & Challenges</div>
+        <div class="feature-desc">Creative challenges to help you grow, express yourself and build confidence.</div>
+        <div class="feature-badge">Sissy Student+ →</div>
+      </div>
+    </a>
+    <a href="https://www.patreon.com/collection/654191" class="feature-card" target="_blank">
+      <div class="feature-img">
+        <div class="feature-img-placeholder"><span>📚</span><small>Add Image</small></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-title">Plans & Guides</div>
+        <div class="feature-desc">10-step beginner plan + advanced transformation guides for every stage.</div>
+        <div class="feature-badge">Sissy Student+ →</div>
+      </div>
+    </a>
+    <a href="https://www.patreon.com/collection/1323406" class="feature-card" target="_blank">
+      <div class="feature-img">
+        <div class="feature-img-placeholder"><span>📕</span><small>Add Image</small></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-title">Diary of Miss Kate</div>
+        <div class="feature-desc">Private thoughts, confessions and personal guidance — an intimate look inside.</div>
+        <div class="feature-badge">Sissy Professional+ →</div>
+      </div>
+    </a>
+    <a href="https://www.patreon.com/collection/695401" class="feature-card" target="_blank">
+      <div class="feature-img">
+        <div class="feature-img-placeholder"><span>🎲</span><small>Add Image</small></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-title">Sissy Games</div>
+        <div class="feature-desc">Interactive web experiences designed to test your focus and discipline.</div>
+        <div class="feature-badge">Sissy Professional+ →</div>
+      </div>
+    </a>
+    <a href="https://www.patreon.com/collection/810285" class="feature-card" target="_blank">
+      <div class="feature-img">
+        <div class="feature-img-placeholder"><span>📖</span><small>Add Image</small></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-title">Private Stories</div>
+        <div class="feature-desc">Exclusive fiction and fantasy content — from sweet inspiration to adult stories.</div>
+        <div class="feature-badge">Sissy Student+ →</div>
+      </div>
+    </a>
+    <a href="https://www.patreon.com/collection/810458" class="feature-card" target="_blank">
+      <div class="feature-img">
+        <div class="feature-img-placeholder"><span>📂</span><small>Add Image</small></div>
+      </div>
+      <div class="feature-body">
+        <div class="feature-title">Private Content Vault</div>
+        <div class="feature-desc">Curated sissy inspiration drive — extended NSFW vault for Professional members.</div>
+        <div class="feature-badge">Sissy Student+ →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- NAME GENERATOR -->
+<section id="name-section" style="padding-top:0;">
+  <div id="name-gen">
+    <div class="section-label">Interactive Tool</div>
+    <h2 class="section-title" style="color:var(--deep);">Find Your Sissy Name</h2>
+    <p class="section-desc" style="margin: 0 auto 1.5rem;">Choose your vibe and discover a name that feels like <em>you</em>.</p>
+
+    <div class="name-gen-options">
+      <button class="vibe-btn active" data-vibe="soft">🌸 Soft & Sweet</button>
+      <button class="vibe-btn" data-vibe="elegant">💎 Elegant</button>
+      <button class="vibe-btn" data-vibe="playful">🎀 Playful</button>
+      <button class="vibe-btn" data-vibe="bold">🔥 Bold</button>
+    </div>
+
+    <div class="name-display" id="nameDisplay">???</div>
+    <div class="name-meaning" id="nameMeaning">Click below to reveal your name...</div>
+
+    <button class="btn btn-primary" onclick="generateName()">✨ Generate My Name</button>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz-section" style="padding-top:0;">
+  <div class="quiz-card">
+    <div class="section-label">Self-Discovery</div>
+    <h2 class="section-title">What's Your Sissy Archetype?</h2>
+    <p class="section-desc">Answer 4 questions and discover your true feminine essence.</p>
+
+    <div class="quiz-progress" id="quizProgress">
+      <div class="quiz-dot current"></div>
+      <div class="quiz-dot"></div>
+      <div class="quiz-dot"></div>
+      <div class="quiz-dot"></div>
+    </div>
+
+    <div id="quizArea">
+      <div class="quiz-question" id="quizQ"></div>
+      <div class="quiz-options" id="quizOpts"></div>
+      <button class="btn" id="quizNext" style="margin-top:1.5rem; background:var(--rose); color:white; display:none;" onclick="nextQuestion()">Next →</button>
+    </div>
+
+    <div class="quiz-result" id="quizResult">
+      <div style="font-size:3rem;margin-bottom:1rem;" id="resultEmoji"></div>
+      <h3 id="resultType"></h3>
+      <p id="resultDesc"></p>
+      <button class="btn" style="margin-top:1.5rem; background:var(--pink); color:var(--deep);" onclick="restartQuiz()">Try Again 🎀</button>
+    </div>
+  </div>
+</section>
+
+<!-- PATREON TIERS -->
+<section>
+  <div class="section-label">Support the Space</div>
+  <h2 class="section-title">Choose Your Journey</h2>
+  <p class="section-desc">From first curious steps to a fully custom fantasy — find the tier that fits where you are right now.</p>
+
+  <div class="tiers">
+    <div class="tier-card basic">
+      <div class="tier-name">💖 Sissy Student</div>
+      <div class="tier-price">$5</div>
+      <div class="tier-period">per month · 75 members</div>
+      <ul class="tier-features">
+        <li>Soft 10-step beginner plan for sissy confidence</li>
+        <li>Private stories & inspiration content</li>
+        <li>Creative challenges to grow & express yourself</li>
+        <li>Exclusive Sissy Discord community invite</li>
+        <li>Tips on presentation, mindset & transformation</li>
+        <li>Private content drive with curated sissy inspiration</li>
+        <li>Early access to new posts and guides</li>
+      </ul>
+      <a href="https://www.patreon.com/c/sissyspace" class="tier-cta" target="_blank">Start Your Journey</a>
+    </div>
+
+    <div class="tier-card pro">
+      <div class="tier-name">💼 Sissy Professional</div>
+      <div class="tier-price">$15</div>
+      <div class="tier-period">per month · 72 members</div>
+      <div style="font-size:0.75rem; color:var(--pink); margin-bottom:0.75rem; font-style:italic;">✦ Most Popular</div>
+      <ul class="tier-features">
+        <li>Everything in Sissy Student</li>
+        <li>Guided audios for mindset & transformation</li>
+        <li>Interactive web experiences & discipline tests</li>
+        <li>Private "Diary of Miss Kate" — confessions & guidance</li>
+        <li>Advanced self-training & transformation tools</li>
+        <li>Extended private vault with NSFW materials</li>
+        <li>Welcome shoutout in the community 📸</li>
+      </ul>
+      <a href="https://www.patreon.com/c/sissyspace" class="tier-cta" target="_blank">Level Up</a>
+    </div>
+
+    <div class="tier-card vip">
+      <div class="tier-name" style="color:var(--gold);">💎 Sissy Goddess of Lust</div>
+      <div class="tier-price">$45</div>
+      <div class="tier-period">per month · 2 / 7 spots</div>
+      <div style="font-size:0.75rem; color:var(--gold); margin-bottom:0.75rem; font-style:italic; background: rgba(212,168,90,0.15); padding: 0.4rem 0.75rem; border-radius: 0.5rem; border: 1px solid rgba(212,168,90,0.25);">⚠️ Only 5 spots remaining!</div>
+      <ul class="tier-features">
+        <li>All previous benefits included</li>
+        <li>Custom sissy persona design — your ultimate fantasy</li>
+        <li>Personalized story written for your character (adult content)</li>
+        <li>Behind-the-scenes of content creation</li>
+        <li>Unique VIP Discord role</li>
+      </ul>
+      <a href="https://www.patreon.com/c/sissyspace" class="tier-cta" target="_blank">Become a Goddess</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section style="padding-top:0; text-align:center;">
+  <h2 class="section-title" style="font-size:1.8rem;">Find Me Everywhere 🌷</h2>
+  <div class="social-row" style="justify-content:center;">
+    <a href="https://www.patreon.com/c/sissyspace" class="social-link" target="_blank">🎨 Patreon</a>
+    <a href="https://www.youtube.com/@Sissy-Space" class="social-link" target="_blank">▶️ YouTube</a>
+    <a href="https://x.com/Sissy__Space" class="social-link" target="_blank">𝕏 Twitter/X</a>
+    <a href="https://www.reddit.com/r/SlSSYspace/" class="social-link" target="_blank">👽 Reddit</a>
+    <a href="https://www.tumblr.com/sissy-space" class="social-link" target="_blank">📷 Tumblr</a>
+  </div>
+</section>
+
+<footer>
+  <strong>Sissy Space</strong> · 18+ Private Feminization Community<br>
+  A gentle, guided space for submissive and feminization-curious souls. 🎀
+</footer>
+
+<script>
+// ───── NAME GENERATOR ─────
+const names = {
+  soft: [
+    { name: 'Lily', meaning: 'Pure, gentle, full of grace — like a flower in morning light.' },
+    { name: 'Rosie', meaning: 'Warm and blooming, with a tender heart that loves deeply.' },
+    { name: 'Daisy', meaning: 'Innocent and bright, always finding joy in small moments.' },
+    { name: 'Ellie', meaning: 'Sweet and soft-spoken, with a quiet inner beauty.' },
+    { name: 'Mia', meaning: 'Gentle soul, radiating warmth and feminine softness.' },
+    { name: 'Sofie', meaning: 'Dreamy and tender, wrapped in pastel clouds.' },
+  ],
+  elegant: [
+    { name: 'Victoria', meaning: 'Commanding grace and timeless feminine power.' },
+    { name: 'Isabelle', meaning: 'Refined beauty with a poised, aristocratic soul.' },
+    { name: 'Vivienne', meaning: 'Vivid and sophisticated — a woman of exquisite taste.' },
+    { name: 'Celeste', meaning: 'Ethereal and elevated, like starlight in silk.' },
+    { name: 'Audrey', meaning: 'Classic elegance that never fades from memory.' },
+    { name: 'Seraphina', meaning: 'Divine and otherworldly — born to enchant.' },
+  ],
+  playful: [
+    { name: 'Bubbly Bambi', meaning: 'Playful and bright, turning every moment into something magical.' },
+    { name: 'Pixie', meaning: 'Mischievous and full of sparkle — impossible to ignore.' },
+    { name: 'Candy', meaning: 'Sweet, fun, and impossibly cute in everything you do.' },
+    { name: 'Lola', meaning: 'Sassy and spirited, always the life of any room.' },
+    { name: 'Bunny', meaning: 'Adorable and bouncy, with endless playful energy.' },
+    { name: 'Cherry', meaning: 'Bright, sweet, and just a little bit naughty.' },
+  ],
+  bold: [
+    { name: 'Scarlett', meaning: 'Fierce, bold, and utterly unforgettable.' },
+    { name: 'Roxy', meaning: 'Confident and daring — she takes up space unapologetically.' },
+    { name: 'Dominique', meaning: 'Strong feminine energy with a powerful commanding presence.' },
+    { name: 'Valentina', meaning: 'Passionate and intense, with fire in her soul.' },
+    { name: 'Alexis', meaning: 'Empowered and self-assured — she knows her worth.' },
+    { name: 'Harlow', meaning: 'Glamorous and bold, dripping in old-Hollywood confidence.' },
+  ],
+};
+
+let activeVibe = 'soft';
+
+document.querySelectorAll('.vibe-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.vibe-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeVibe = btn.dataset.vibe;
+    document.getElementById('nameDisplay').textContent = '???';
+    document.getElementById('nameMeaning').textContent = 'Click below to reveal your name...';
+  });
+});
+
+function generateName() {
+  const list = names[activeVibe];
+  const pick = list[Math.floor(Math.random() * list.length)];
+  const el = document.getElementById('nameDisplay');
+  el.classList.add('popping');
+  el.textContent = pick.name;
+  document.getElementById('nameMeaning').textContent = pick.meaning;
+  setTimeout(() => el.classList.remove('popping'), 400);
+}
+
+// ───── QUIZ ─────
+const questions = [
+  {
+    q: 'When you close your eyes and imagine yourself, what are you wearing?',
+    opts: ['A delicate floral sundress 🌸', 'A sleek evening gown 💎', 'Cute lingerie and bunny ears 🎀', 'Leather and lace, bold and powerful 🔥']
+  },
+  {
+    q: 'Your ideal Sunday morning looks like...',
+    opts: ['Soft music, candles, journaling in silk 🕯️', 'Skincare ritual and elegant brunch ☕', 'Shopping for cute outfits online 🛍️', 'Commanding attention at a fabulous event ✨']
+  },
+  {
+    q: 'What does femininity mean to you?',
+    opts: ['Softness, gentleness, being cared for 💕', 'Poise, elegance, refined grace 👑', 'Playfulness, fun, and cute aesthetics 🍬', 'Power, confidence, owning every room 💄']
+  },
+  {
+    q: 'Your spirit color is...',
+    opts: ['Blush pink 🌷', 'Ivory and gold 🤍', 'Bubblegum and lavender 💜', 'Deep red or black 🥀']
+  }
+];
+
+const archetypes = [
+  {
+    type: 'The Soft Blossom', emoji: '🌸',
+    desc: 'You embody gentle femininity — tender, loving, and radiating warmth. Your journey is one of quiet self-discovery, wrapped in silk and softness.',
+    scores: [0,0,0,0]
+  },
+  {
+    type: 'The Elegant Muse', emoji: '💎',
+    desc: 'Refined and graceful, you carry yourself with an innate sense of sophistication. Every gesture feels intentional, every detail considered.',
+    scores: [1,1,1,1]
+  },
+  {
+    type: 'The Playful Pixie', emoji: '🎀',
+    desc: 'Bright, bubbly, and full of sparkle — you approach femininity with joy and playfulness. You make every moment feel magical and fun.',
+    scores: [2,2,2,2]
+  },
+  {
+    type: 'The Bold Goddess', emoji: '🔥',
+    desc: 'Fierce, confident, and unapologetically powerful. You channel femininity as strength, commanding every space you enter with breathtaking presence.',
+    scores: [3,3,3,3]
+  }
+];
+
+let currentQ = 0;
+let answers = [];
+
+function renderQuiz() {
+  const q = questions[currentQ];
+  document.getElementById('quizQ').textContent = q.q;
+  const opts = document.getElementById('quizOpts');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.onclick = () => {
+      document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      answers[currentQ] = i;
+      document.getElementById('quizNext').style.display = 'inline-block';
+    };
+    opts.appendChild(btn);
+  });
+
+  // Update progress
+  const dots = document.querySelectorAll('.quiz-dot');
+  dots.forEach((d, i) => {
+    d.className = 'quiz-dot';
+    if(i < currentQ) d.classList.add('done');
+    else if(i === currentQ) d.classList.add('current');
+  });
+
+  document.getElementById('quizNext').style.display = 'none';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if(currentQ >= questions.length) {
+    showResult();
+  } else {
+    renderQuiz();
+  }
+}
+
+function showResult() {
+  // Count which option was chosen most
+  const counts = [0,0,0,0];
+  answers.forEach(a => counts[a]++);
+  const winner = counts.indexOf(Math.max(...counts));
+  const archetype = archetypes[winner];
+
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('quizProgress').style.display = 'none';
+  const result = document.getElementById('quizResult');
+  result.style.display = 'block';
+  document.getElementById('resultEmoji').textContent = archetype.emoji;
+  document.getElementById('resultType').textContent = archetype.type;
+  document.getElementById('resultDesc').textContent = archetype.desc;
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  answers = [];
+  document.getElementById('quizArea').style.display = 'block';
+  document.getElementById('quizProgress').style.display = 'flex';
+  document.getElementById('quizResult').style.display = 'none';
+  renderQuiz();
+}
+
+renderQuiz();
+
+// ───── CAROUSEL ─────
+const track = document.getElementById('memberCarousel');
+const btnL = document.getElementById('carouselLeft');
+const btnR = document.getElementById('carouselRight');
+const SCROLL_AMT = 500;
+
+// Auto-count members
+const memberCount = track.querySelectorAll('.caption-card').length;
+document.getElementById('memberCount').textContent = memberCount;
+
+btnL.addEventListener('click', () => track.scrollBy({ left: -SCROLL_AMT, behavior: 'smooth' }));
+btnR.addEventListener('click', () => track.scrollBy({ left: SCROLL_AMT, behavior: 'smooth' }));
+
+let isDragging = false, startX, scrollStart;
+track.addEventListener('mousedown', e => {
+  isDragging = true;
+  startX = e.pageX - track.offsetLeft;
+  scrollStart = track.scrollLeft;
+  track.classList.add('grabbing');
+});
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  const x = e.pageX - track.offsetLeft;
+  track.scrollLeft = scrollStart - (x - startX);
+});
+window.addEventListener('mouseup', () => {
+  isDragging = false;
+  track.classList.remove('grabbing');
+});
+</script>
+</body>
+</html>
